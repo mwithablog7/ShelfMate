@@ -3,7 +3,7 @@ body, html, #root {
   margin: 0;
   padding: 0;
   font-family: 'Helvetica Neue', Arial, sans-serif;
-  background-color: #FDF6F0;
+  background-color: #fdf8f4;
   color: #333;
   height: 100%;
 }
@@ -33,7 +33,7 @@ body, html, #root {
 
 .cloud {
   position: relative;
-  width: 120px;
+  width: 140px;
   height: 80px;
   border-radius: 50px;
   display: flex;
@@ -52,11 +52,11 @@ body, html, #root {
   background-color: #fff;
   color: #333;
   text-align: center;
-  border-radius: 10px;
-  padding: 8px;
+  border-radius: 12px;
+  padding: 10px;
   position: absolute;
   top: -60px;
-  width: 150px;
+  width: 160px;
   box-shadow: 0px 4px 8px rgba(0,0,0,0.1);
   font-size: 0.9rem;
 }
@@ -81,7 +81,7 @@ body, html, #root {
   background-color: #A0C4E0;
 }
 
-/* AdventureScreen */
+/* AdventureScreen & StatsScreen */
 .adventure-screen, .stats-screen {
   display: flex;
   flex-direction: column;
