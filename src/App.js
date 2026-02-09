@@ -1,95 +1,65 @@
-
 import React, { useState, useEffect } from "react";
 import HomeScreen from "./HomeScreen";
 import AdventureScreen from "./AdventureScreen";
 import StatsScreen from "./StatsScreen";
 
-export default function App() {
-  const [screen, setScreen] = useState("home");
-  const [completed, setCompleted] = useState(
-    JSON.parse(localStorage.getItem("completed")) || []
+const SCREENS = {
+  HOME: "HOME",
+  ADVENTURE: "ADVENTURE",
+  STATS: "STATS"
+};
+
+function App() {
+  const [currentScreen, setCurrentScreen] = useState(SCREENS.HOME);
+  const [completedChallenges, setCompletedChallenges] = useState(
+    JSON.parse(localStorage.getItem("completedChallenges")) || []
+  );
+
+  const [streak, setStreak] = useState(
+    parseInt(localStorage.getItem("dailyStreak")) || 0
   );
 
   useEffect(() => {
-    localStorage.setItem("completed", JSON.stringify(completed));
-  }, [completed]);
+    localStorage.setItem("completedChallenges", JSON.stringify(completedChallenges));
+    localStorage.setItem("dailyStreak", streak);
+  }, [completedChallenges, streak]);
 
-  const resetProgress = () => {
-    if (window.confirm("Are you sure you want to reset your progress?")) {
-      setCompleted([]);
+  const markChallengeDone = (challengeId) => {
+    if (!completedChallenges.includes(challengeId)) {
+      setCompletedChallenges([...completedChallenges, challengeId]);
+      setStreak(streak + 1);
     }
   };
 
-  const addCompletion = (challengeId) => {
-    const today = new Date().toISOString().slice(0, 10);
-    setCompleted([...completed, { challengeId, date: today }]);
+  const resetStats = () => {
+    setCompletedChallenges([]);
+    setStreak(0);
   };
-
-  const renderScreen = () => {
-    switch (screen) {
-      case "home":
-        return <HomeScreen setScreen={setScreen} />;
-      case "adventure":
-        return (
-          <AdventureScreen
-            setScreen={setScreen}
-            addCompletion={addCompletion}
-          />
-        );
-      case "stats":
-        return (
-          <StatsScreen
-            setScreen={setScreen}
-            completed={completed}
-            resetProgress={resetProgress}
-          />
-        );
-      default:
-        return <HomeScreen setScreen={setScreen} />;
-    }
-  };
-
-  return <div>{renderScreen()}</div>;
-}
-
-
-
-
-
-
-home screen 
-
-
-
-import React from "react";
-
-export default function HomeScreen({ setScreen }) {
-  const moods = [
-    { emoji: "📖", label: "Reading" },
-    { emoji: "☕", label: "Coffee Time" },
-    { emoji: "🎵", label: "Music Vibes" },
-    { emoji: "🌿", label: "Relaxed" },
-    { emoji: "💡", label: "Inspired" },
-  ];
 
   return (
-    <div className="container">
-      <h1>Welcome to ShelfMate</h1>
-      <div className="mood-grid">
-        {moods.map((m, i) => (
-          <div key={i} className="mood" title={m.label}>
-            {m.emoji}
-            <p>{m.label}</p>
-          </div>
-        ))}
-      </div>
-      <button className="btn" onClick={() => setScreen("adventure")}>
-        Start Challenge
-      </button>
-      <button className="btn" onClick={() => setScreen("stats")}>
-        View Stats
-      </button>
+    <div className="app-container">
+      {currentScreen === SCREENS.HOME && (
+        <HomeScreen
+          goToAdventure={() => setCurrentScreen(SCREENS.ADVENTURE)}
+          goToStats={() => setCurrentScreen(SCREENS.STATS)}
+        />
+      )}
+      {currentScreen === SCREENS.ADVENTURE && (
+        <AdventureScreen
+          markDone={markChallengeDone}
+          goBack={() => setCurrentScreen(SCREENS.HOME)}
+        />
+      )}
+      {currentScreen === SCREENS.STATS && (
+        <StatsScreen
+          completedCount={completedChallenges.length}
+          streak={streak}
+          resetStats={resetStats}
+          goBack={() => setCurrentScreen(SCREENS.HOME)}
+        />
+      )}
     </div>
   );
 }
 
+export default App;
