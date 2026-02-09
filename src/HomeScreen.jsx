@@ -2,9 +2,9 @@ import React from "react";
 
 const challenges = [
   "Read 10 pages of a new book",
-  "Write a 5-sentence summary of what you read",
-  "Read a poem and reflect on it",
-  "Discover a new author today",
+  "Write a 5-sentence summary",
+  "Read a poem and reflect",
+  "Discover a new author",
   "Read a chapter before bed"
 ];
 
