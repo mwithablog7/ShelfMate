@@ -1,121 +1,119 @@
-/* Fonts & Base */
-@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@400;600&display=swap");
-
-body {
-  font-family: "Poppins", sans-serif;
-  background: #f2f0ed; /* soft neutral cream */
+/* Global Styles */
+body, html, #root {
   margin: 0;
   padding: 0;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  background-color: #FDF6F0;
+  color: #333;
+  height: 100%;
+}
+
+.app-container {
   display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  min-height: 100vh;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
 }
 
-.container {
-  max-width: 600px;
-  margin: 40px auto;
-  padding: 40px 30px;
-  border-radius: 20px;
-  background: #fff;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
-  text-align: center;
+/* HomeScreen */
+.title {
+  font-family: 'Georgia', serif;
+  font-size: 2.5rem;
+  margin-bottom: 30px;
+  color: #556B6B;
 }
 
-/* Headings */
-h1,
-h2 {
-  font-family: "Playfair Display", serif;
-  font-weight: 700;
-  color: #3a3a3a;
-  margin-bottom: 25px;
-}
-
-/* Paragraphs */
-p {
-  font-size: 1.1em;
-  color: #555;
-  line-height: 1.6;
-}
-
-/* Challenge Cards */
-.challenge-card {
-  background: linear-gradient(145deg, #fef5f8, #fceef6);
-  padding: 22px 28px;
-  border-radius: 24px;
-  margin: 18px 0;
-  font-size: 1.05em;
-  text-align: center;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-  cursor: default;
-}
-
-.challenge-card:hover {
-  transform: translateY(-5px) scale(1.02);
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
-}
-
-/* Buttons Group */
-.button-group {
+.cloud-container {
   display: flex;
   flex-wrap: wrap;
+  gap: 20px;
   justify-content: center;
-  gap: 15px;
-  margin-top: 25px;
+  margin-bottom: 40px;
 }
 
-/* Mood Buttons (soft pastel gradients, rounded, pop on hover) */
-.button-group button {
-  padding: 14px 22px;
-  border-radius: 22px;
-  font-size: 1em;
-  font-weight: 600;
-  border: none;
+.cloud {
+  position: relative;
+  width: 120px;
+  height: 80px;
+  border-radius: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.3s ease;
   cursor: pointer;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
-.button-group button:hover {
-  transform: translateY(-4px) scale(1.03);
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+.cloud:hover {
+  transform: scale(1.1);
 }
 
-/* Pastel Gradient Moods */
-button.inspired {
-  background: linear-gradient(135deg, #fff3b0, #ffe680);
-  color: #3a3a3a;
-}
-button.relaxed {
-  background: linear-gradient(135deg, #c6f5d8, #a6eac8);
-  color: #3a3a3a;
-}
-button.adventurous {
-  background: linear-gradient(135deg, #b0d8ff, #7fc8ff);
-  color: #3a3a3a;
-}
-button.curious {
-  background: linear-gradient(135deg, #e0c6ff, #c08aff);
-  color: #3a3a3a;
-}
-button.cozy {
-  background: linear-gradient(135deg, #ffcce6, #ff99cc);
-  color: #3a3a3a;
+.popup {
+  visibility: hidden;
+  background-color: #fff;
+  color: #333;
+  text-align: center;
+  border-radius: 10px;
+  padding: 8px;
+  position: absolute;
+  top: -60px;
+  width: 150px;
+  box-shadow: 0px 4px 8px rgba(0,0,0,0.1);
+  font-size: 0.9rem;
 }
 
-/* Back / Done / Stats / Reset buttons */
-.button-group
-  button:not(.inspired):not(.relaxed):not(.adventurous):not(.curious):not(
-    .cozy
-  ) {
-  background: #f5f5f5;
-  color: #3a3a3a;
+.cloud:hover .popup {
+  visibility: visible;
+}
+
+.home-buttons button {
+  margin: 0 10px;
+  padding: 10px 25px;
+  font-size: 1rem;
   border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  background-color: #BFD7EA;
+  color: #333;
+  transition: background 0.3s ease;
 }
-.button-group
-  button:not(.inspired):not(.relaxed):not(.adventurous):not(.curious):not(
-    .cozy
-  ):hover {
-  background: #ebebeb;
+
+.home-buttons button:hover {
+  background-color: #A0C4E0;
+}
+
+/* AdventureScreen */
+.adventure-screen, .stats-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.challenge-text {
+  font-size: 1.5rem;
+  margin: 30px 0;
+  background-color: #E8F6EF;
+  padding: 15px 25px;
+  border-radius: 20px;
+}
+
+.adventure-buttons button, .stats-buttons button {
+  margin: 10px;
+  padding: 10px 25px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  background-color: #C4D7F2;
+  transition: background 0.3s ease;
+}
+
+.adventure-buttons button:hover, .stats-buttons button:hover {
+  background-color: #AFC6E8;
+}
+
+/* StatsScreen */
+.stats-screen p {
+  font-size: 1.2rem;
+  margin: 15px 0;
 }
